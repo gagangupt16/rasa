@@ -8,11 +8,7 @@ import numpy as np
 import pytest
 
 from rasa.core import training
-from rasa.core.events import (
-    UserUttered,
-    ActionExecuted,
-    SessionStarted,
-)
+from rasa.core.events import UserUttered, ActionExecuted, SessionStarted
 from rasa.core.featurizers import (
     MaxHistoryTrackerFeaturizer,
     BinarySingleStateFeaturizer,
@@ -120,7 +116,7 @@ async def test_generate_training_data_with_cycles(stories_file: Text, default_do
     num_tens = len(training_trackers) - 1
     # if new default actions are added the keys of the actions will be changed
 
-    assert Counter(y) == {0: 6, 10: num_tens, 12: 1, 1: 2, 11: 3}
+    assert Counter(y) == {0: 6, 12: num_tens, 14: 1, 1: 2, 13: 3}
 
 
 @pytest.mark.parametrize(
@@ -151,7 +147,7 @@ async def test_generate_training_data_original_and_augmented_trackers(
     stories_file: Text, default_domain
 ):
     training_trackers = await training.load_data(
-        stories_file, default_domain, augmentation_factor=3,
+        stories_file, default_domain, augmentation_factor=3
     )
     # there are three original stories
     # augmentation factor of 3 indicates max of 3*10 augmented stories generated
